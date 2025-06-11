@@ -47,6 +47,6 @@ public abstract class AbstractDevice extends LogicEntity {  //!!Abstract Factory
     protected int id$user;  //the userid of the IoT user
 
     public String getInfo(){  //!!Decorator pattern
-        return "This is the ZECO detector who is detecting";
+        return "This is a ZECO detector who is detecting";
     }
 }

@@ -16,13 +16,10 @@ import java.io.IOException;
 @RequestMapping("/api/place")
 @CrossOrigin(origins = "*")
 public class PlaceController{
-    @Autowired  //!!Single Existence Pattern
+    @Autowired  //!!Singleton design pattern
     private UserService userService;
-    @Autowired
-    private PlaceProxy placeProxy;
-    @Autowired
+    @Autowired  //!!Singleton design pattern
     private PlaceService placeService;
-
     @GetMapping("/getPlacesList")
     public Responsemsg getPlacesList(@RequestBody String token) throws IOException{
         if(userService.verifyToken(token)=="0"){

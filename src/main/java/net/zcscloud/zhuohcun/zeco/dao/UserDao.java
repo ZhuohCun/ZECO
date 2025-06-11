@@ -14,7 +14,7 @@ import javax.transaction.Transactional;
 public interface UserDao{
 
     @Transactional
-    @Select("SELECT role FROM user where id= :usid and isdeleted=0 limit 1") //Demete Law
+    @Select("SELECT role FROM user where id= :usid and isdeleted=0 limit 1") //!!Demeter Law
     int getUserRole(int usid);
 
     @Transactional

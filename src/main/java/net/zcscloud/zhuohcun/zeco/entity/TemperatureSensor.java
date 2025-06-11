@@ -22,6 +22,7 @@ public class TemperatureSensor extends AbstractDevice {
 
     @Column
     String unit= "℃";
+    @Override
     public String getInfo(){  //!!Decorator pattern
         return super.getInfo()+" the temperature value and the max scale is "+maxvalue+" and unit is "+unit+".";
     }

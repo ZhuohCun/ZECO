@@ -18,17 +18,16 @@ public interface DeviceDao{
     @Update("UPDATE Device SET cvalue= :value , ccondition=  :condition , color= :color where id= :devid and isdeleted=0")
     void updateDeviceValue(int devid, String value, String color,String condition);
 
-    @Modifying
     @Transactional
-    @Insert("SELECT id$user FROM device WHERE id= :devid and isdeleted=0 limit 1")  //!!Demete Law
+    @Select("SELECT id$user FROM device WHERE id= :devid and isdeleted=0 limit 1")  //!!Demeter Law
     int getusidbydevid(int devid);
 
     @Transactional
-    @Select("SELECT maxvalue FROM device WHERE id= :devid and isdeleted=0")  //!!Demete Law  /only provide necessary information
+    @Select("SELECT maxvalue FROM device WHERE id= :devid and isdeleted=0")  //!!demeter Law  /only provide necessary information
     float getmaxvaluebydevid(int devid);
 
     @Transactional
-    @Select("SELECT type,unit,cvalue,ccondition,color,id$place FROM device where id$place= :placeid and isdeleted=0")  //!!Demete Law
+    @Select("SELECT type,unit,cvalue,ccondition,color,id$place FROM device where id$place= :placeid and isdeleted=0")  //!!demeter Law
     List<AbstractDevice> getdevicesbyplaceid(int placeid);
 
     @Transactional
@@ -44,4 +43,8 @@ public interface DeviceDao{
     @Transactional
     @Select("SELECT * FROM device WHERE id= :devid AND isdeleted=0 limit1")
     AbstractDevice getDevicebyId(int devid);
+
+    @Transactional
+    @Select("SELECT cvalue FROM device WHERE id= :devid AND isdeleted=0")
+    int getUpdate(int devid);
 }

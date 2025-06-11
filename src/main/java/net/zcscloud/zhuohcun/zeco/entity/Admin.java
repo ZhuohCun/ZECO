@@ -17,6 +17,7 @@ public class Admin extends AbstractUser {
     @Column
     protected Integer role=1;
 
+    @Override
     public String getInfo() {  //!!Decorator pattern
         return super.getInfo()+"admin.";
     }

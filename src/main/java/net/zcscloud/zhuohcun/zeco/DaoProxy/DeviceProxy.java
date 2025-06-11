@@ -48,4 +48,8 @@ public class DeviceProxy implements GeneralProxy{  //!!Proxy Pattern
     public AbstractDevice getDevicebyId(int devid) {
         return deviceDao.getDevicebyId(devid);
     }
+
+    public String getUpdate(int devid) {
+        return String.valueOf(deviceDao.getUpdate(devid));
+    }
 }

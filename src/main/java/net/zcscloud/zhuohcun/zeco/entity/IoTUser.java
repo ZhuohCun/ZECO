@@ -16,6 +16,7 @@ import javax.persistence.Table;
 public class IoTUser extends AbstractUser {
     @Column
     protected Integer role=3;
+    @Override
     public String getInfo() {  //!!Decorator pattern
         return super.getInfo()+"IoTUser.";
     }

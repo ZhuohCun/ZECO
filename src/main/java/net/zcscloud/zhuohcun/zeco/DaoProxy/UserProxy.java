@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 public class UserProxy implements GeneralProxy{  //!!Proxy Pattern
 
     @Autowired
-    private UserDao userDao;  //!!Single Existence Pattern
+    private UserDao userDao;  //!!Singleton design pattern
 
     public int getuserrole(int userid) {
         return userDao.getUserRole(userid);

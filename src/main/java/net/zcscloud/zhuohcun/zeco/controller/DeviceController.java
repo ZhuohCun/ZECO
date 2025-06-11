@@ -27,7 +27,7 @@ public class DeviceController{
     public DeviceController(@Qualifier("deviceService") @Autowired DeviceService service){
 
     }
-    @PostMapping("/updateValue")
+    @PostMapping("/updateValue")  //!!Observer Pattern
     public Responsemsg updateValue(@RequestBody String id, @RequestBody String token, @RequestBody String value) throws IOException {
         if(userService.verifyToken(token)=="0"){
             try {
@@ -73,7 +73,7 @@ public class DeviceController{
         }
         if(userService.verifyToken(token)=="0" && (role==1||role==0)){  //verification
             try {
-                return deviceService.deleteDevice(devid, gottenid);  //!!Demete Law  /verification success, only provide necessary information
+                return deviceService.deleteDevice(devid, gottenid);  //!!demeter Law  /verification success, only provide necessary information
             }catch (Exception e){
                 return Responsemsg.error("-1");
             }
@@ -97,6 +97,18 @@ public class DeviceController{
     public Responsemsg getDescription(@RequestBody String token,@RequestBody String devid) {
         if(userService.verifyToken(token)=="0"){
             return Responsemsg.successWithMessage(deviceService.getDescription(Integer.parseInt(devid)));
+        }else {
+            return Responsemsg.error("-1");
+        }
+    }
+    @GetMapping("/getUpdate")
+    public Responsemsg getUpdate(@RequestBody String token,@RequestBody String devid) throws IOException {
+        if(userService.verifyToken(token)=="0"){
+            try{
+                return Responsemsg.successWithMessage(deviceService.getUpdate(String devid));
+            }catch (IOException e){
+                return Responsemsg.error("-1");
+            }
         }else {
             return Responsemsg.error("-1");
         }

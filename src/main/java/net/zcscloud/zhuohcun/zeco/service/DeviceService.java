@@ -77,4 +77,8 @@ public class DeviceService{
         AbstractDevice specificDevice=deviceProxy.getDevicebyId(devid);
         return specificDevice.getInfo();
     }
+
+    public String getUpdate(String devid) {
+        return deviceProxy.getUpdate(Integer.parseInt(devid));
+    }
 }

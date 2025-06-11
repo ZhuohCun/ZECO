@@ -23,6 +23,7 @@ public class CO2sensor extends AbstractDevice {
     @Column
     String unit= "%";
 
+    @Override
     public String getInfo(){  //!!Decorator pattern
         return super.getInfo()+" the CO2 value and the max scale is "+maxvalue+" and unit is "+unit+".";
     }
