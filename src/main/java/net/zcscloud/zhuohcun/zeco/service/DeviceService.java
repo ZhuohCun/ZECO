@@ -6,7 +6,6 @@ import net.zcscloud.zhuohcun.zeco.DaoProxy.UserProxy;
 import net.zcscloud.zhuohcun.zeco.common.JwtUtil;
 import net.zcscloud.zhuohcun.zeco.entity.AbstractDevice;
 import net.zcscloud.zhuohcun.zeco.entity.Responsemsg;
-import net.zcscloud.zhuohcun.zeco.entity.User;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

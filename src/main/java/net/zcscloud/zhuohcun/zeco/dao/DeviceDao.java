@@ -1,7 +1,6 @@
 package net.zcscloud.zhuohcun.zeco.dao;
 
 import net.zcscloud.zhuohcun.zeco.entity.AbstractDevice;
-import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;

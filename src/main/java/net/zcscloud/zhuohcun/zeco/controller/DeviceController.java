@@ -7,7 +7,6 @@ import net.zcscloud.zhuohcun.zeco.service.DeviceService;
 import net.zcscloud.zhuohcun.zeco.service.UserService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -24,9 +23,6 @@ public class DeviceController{
     @Autowired
     private DeviceService deviceService;
 
-    public DeviceController(@Qualifier("deviceService") @Autowired DeviceService service){
-
-    }
     @PostMapping("/updateValue")  //!!Observer Pattern
     public Responsemsg updateValue(@RequestBody String id, @RequestBody String token, @RequestBody String value) throws IOException {
         if(userService.verifyToken(token)=="0"){

@@ -2,7 +2,6 @@ package net.zcscloud.zhuohcun.zeco.controller;
 import io.jsonwebtoken.Claims;
 import net.zcscloud.zhuohcun.zeco.DaoProxy.UserProxy;
 import net.zcscloud.zhuohcun.zeco.common.JwtUtil;
-import net.zcscloud.zhuohcun.zeco.entity.AbstractUser;
 import net.zcscloud.zhuohcun.zeco.entity.Responsemsg;
 import net.zcscloud.zhuohcun.zeco.service.UserService;
 import io.swagger.annotations.Api;

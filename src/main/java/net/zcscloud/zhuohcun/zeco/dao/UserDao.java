@@ -1,6 +1,5 @@
 package net.zcscloud.zhuohcun.zeco.dao;
 
-import net.zcscloud.zhuohcun.zeco.entity.AbstractUser;
 import net.zcscloud.zhuohcun.zeco.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
