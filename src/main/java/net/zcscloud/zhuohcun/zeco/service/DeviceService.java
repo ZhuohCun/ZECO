@@ -78,7 +78,7 @@ public class DeviceService{
         return specificDevice.getInfo();
     }
 
-    public String getUpdate(String devid) {
+    public String getUpdate(String devid) throws IOException  {
         return deviceProxy.getUpdate(Integer.parseInt(devid));
     }
 }

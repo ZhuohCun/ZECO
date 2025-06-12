@@ -105,7 +105,7 @@ public class DeviceController{
     public Responsemsg getUpdate(@RequestBody String token,@RequestBody String devid) throws IOException {
         if(userService.verifyToken(token)=="0"){
             try{
-                return Responsemsg.successWithMessage(deviceService.getUpdate(String devid));
+                return Responsemsg.successWithMessage(deviceService.getUpdate(devid));
             }catch (IOException e){
                 return Responsemsg.error("-1");
             }

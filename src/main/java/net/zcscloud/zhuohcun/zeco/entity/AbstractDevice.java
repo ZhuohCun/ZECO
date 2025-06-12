@@ -17,7 +17,7 @@ public abstract class AbstractDevice extends LogicEntity {  //!!Abstract Factory
     protected String name;  //the name of the device
 
     @Column
-    protected int type;  //1.CO2 sensor 2.temperature sensor 3.PM25
+    protected int type;  //1.CO2 sensor 2.temperature sensor 3.PM25 sensor
 
     @Column
     protected String unit;  //the unit of a specific device
@@ -41,7 +41,7 @@ public abstract class AbstractDevice extends LogicEntity {  //!!Abstract Factory
     protected String physicalid;  //serial number of a specific device
 
     @Column
-    protected int id$places;  //the place a specific device is belonged to
+    protected int id$place;  //the place a specific device is belonged to
 
     @Column
     protected int id$user;  //the userid of the IoT user
