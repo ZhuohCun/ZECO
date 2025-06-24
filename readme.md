@@ -1,2 +1,2 @@
-- ZECO Software
+- ZECO Program
 - Zhuohong Cun (aka. Takukou Sun) © All Rights Reserved

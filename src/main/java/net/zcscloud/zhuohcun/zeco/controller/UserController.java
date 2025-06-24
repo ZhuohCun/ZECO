@@ -39,7 +39,7 @@ public class UserController{
             return "2"; //invalid
         }
     }
-    @PostMapping("/lock")  //Only admin/root can perform this operation
+    @PostMapping("/lock")  //Only root can perform this operation
     public Responsemsg lock(@RequestBody String token, @RequestBody String usid) {
         String gottenid = null;
         int role;
@@ -50,7 +50,7 @@ public class UserController{
         }catch(Exception e){
             return Responsemsg.error("-1");
         }
-        if(userService.verifyToken(token)=="0" && (role==1||role==0)){  //verification
+        if(userService.verifyToken(token)=="0" && (role==0)){  //verification
             try {
                 return userService.lock(usid, gottenid);
             }catch (Exception e){
@@ -61,7 +61,7 @@ public class UserController{
         }
     }
 
-    @PostMapping("/unlock")  //Only admin/root can perform this operation
+    @PostMapping("/unlock")  //Only root can perform this operation
     public Responsemsg unlock(@RequestBody String token, @RequestBody String usid) {
         String gottenid = null;
         int role;
@@ -72,7 +72,7 @@ public class UserController{
         }catch(Exception e){
             return Responsemsg.error("-1");
         }
-        if(userService.verifyToken(token)=="0" && (role==1||role==0)){  //verification
+        if(userService.verifyToken(token)=="0" && (role==0)){  //verification
             try {
                 return userService.unlock(usid, gottenid);
             }catch (Exception e){

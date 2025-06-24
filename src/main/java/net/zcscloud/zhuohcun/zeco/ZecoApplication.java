@@ -11,14 +11,17 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 @SpringBootApplication
 @MapperScan("net.zcscloud.zhuohcun.zeco.dao")
 public class ZecoApplication {
-
     @Bean
     public ModelMapper modelMapper() {
         return new ModelMapper();
     }
 
     public static void main(String[] args) {
-        SpringApplication.run(ZecoApplication.class, args);
+        try{
+            SpringApplication.run(ZecoApplication.class, args);
+        }catch(Exception e){
+
+        }
     }
 
 }

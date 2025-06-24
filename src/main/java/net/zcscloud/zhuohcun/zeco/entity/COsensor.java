@@ -13,7 +13,7 @@ import javax.persistence.Table;
 @Setter
 @Inheritance
 @Table(name = "device")
-public class CO2sensor extends AbstractDevice {
+public class COsensor extends AbstractDevice {
     @Column
     String type="1";
 
@@ -25,6 +25,6 @@ public class CO2sensor extends AbstractDevice {
 
     @Override
     public String getInfo(){  //!!Decorator pattern
-        return super.getInfo()+" the CO2 value and the max scale is "+maxvalue+" and unit is "+unit+".";
+        return super.getInfo()+" the CO value and the max scale is "+maxvalue+" and unit is "+unit+".";
     }
 }

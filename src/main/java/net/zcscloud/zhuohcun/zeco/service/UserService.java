@@ -23,6 +23,9 @@ public class UserService{
         if (!user.getPassword().equals(password)) {
             return Responsemsg.error("-1");
         }
+        if(user.getIsdeleted()==1&&user.getIslocked()==1){
+            return Responsemsg.error("-2");
+        }
         return Responsemsg.successWithMessage(JwtUtil.generateToken(username,43200000));
     }
     public String verifyToken(String token) {
