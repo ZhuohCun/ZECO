@@ -1,5 +1,6 @@
 package net.zcscloud.zhuohcun.zeco.entity;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,6 +12,7 @@ import javax.persistence.Table;
 @Entity
 @Getter
 @Setter
+@Data
 @Inheritance
 @Table(name = "device")
 public class COsensor extends AbstractDevice {

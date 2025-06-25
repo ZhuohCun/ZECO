@@ -1,5 +1,6 @@
 package net.zcscloud.zhuohcun.zeco.entity;
 
+import lombok.Data;
 import net.zcscloud.zhuohcun.zeco.common.entity.LogicEntity;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,13 +11,14 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Inheritance
+@Data
 @Table(name = "device")
-public abstract class AbstractDevice extends LogicEntity {  //!!Abstract Factory
+public class AbstractDevice extends LogicEntity {  //!!Abstract Factory
 
     @Column
     protected String name;  //the name of the device
 
-    @Column
+    @Column(name = "`type`")
     protected int type;  //1.CO2 sensor 2.temperature sensor 3.PM25 sensor
 
     @Column
@@ -29,9 +31,9 @@ public abstract class AbstractDevice extends LogicEntity {  //!!Abstract Factory
     protected String ccondition;  //current condition //LOW, GREAT OR HIGH
 
     @Column
-    protected float maxvalue;  //max value (used when calculating percentage)
+    protected float max_value;  //max value (used when calculating percentage)
 
-    @Column
+    @Column(name = "`percent`")
     protected float percent;  //percentage (used when generating its condition and color)
 
     @Column
@@ -48,5 +50,29 @@ public abstract class AbstractDevice extends LogicEntity {  //!!Abstract Factory
 
     public String getInfo(){  //!!Decorator pattern
         return "This is a ZECO detector who is detecting";
+    }
+    public String getCcondition(){
+        return this.ccondition;
+    }
+    public String getName(){
+        return this.name;
+    }
+    public String getUnit(){
+        return this.unit;
+    }
+    public String getCvalue(){
+        return this.cvalue;
+    }
+    public String getColor(){
+        return this.color;
+    }
+    public int getId$place(){
+        return this.id$place;
+    }
+    public int getId$user(){
+        return this.id$user;
+    }
+    public int getType(){
+        return this.type;
     }
 }

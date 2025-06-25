@@ -38,11 +38,11 @@ public class DeviceProxy implements GeneralProxy{  //!!Proxy Pattern
         return deviceDao.getdevicesbyplaceid(placeid);
     }
     public void updateDeviceSpecs(int devid, String name, String type, String unit, String maxvalue, String physicalid, String placeid){
-        deviceDao.updateDeviceSpecs(devid, name, Integer.parseInt(type), unit, maxvalue, physicalid, Integer.parseInt(placeid));
+        deviceDao.updateDeviceSpecs(devid, name, Integer.parseInt(type), unit, Float.valueOf(maxvalue), physicalid, Integer.parseInt(placeid));
     }
 
     public void deleteDevice(String devid, String id) {
-        deviceDao.deleteDevice(devid, Integer.parseInt(id));
+        deviceDao.deleteDevice(Integer.parseInt(devid), Integer.parseInt(id));
     }
 
     public AbstractDevice getDevicebyId(int devid) {

@@ -1,5 +1,6 @@
 package net.zcscloud.zhuohcun.zeco.entity;
 
+import lombok.Data;
 import net.zcscloud.zhuohcun.zeco.common.entity.LogicEntity;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,9 +10,10 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
+@Data
 @Inheritance
 @Table(name = "user")
-public abstract class AbstractUser extends LogicEntity {
+public class AbstractUser extends LogicEntity {
     @Column
     protected String username;
 
@@ -41,5 +43,11 @@ public abstract class AbstractUser extends LogicEntity {
     }
     public String getPassword() {
         return password;
+    }
+    public int getIsdeleted() {
+        return super.getIsdeleted();
+    }
+    public int getIslocked() {
+        return islocked;
     }
 }

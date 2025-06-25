@@ -21,33 +21,33 @@ public class UserProxy implements GeneralProxy{  //!!Proxy Pattern
         return userDao.findByName(name);
     }
 
-    public Responsemsg lock(String usid, String gottenid) {
+    public String lock(String usid, String gottenid) {
         int islocked = -1;
         if(userDao.getIslocked(Integer.parseInt(usid))==1){
-            islocked=userDao.getIslocked(Integer.parseInt(usid));
+            islocked=1;
         }
-        if (islocked==0) {
-            return Responsemsg.error("0");
+        if (islocked==1) {
+            return "0";
         } else if (islocked==-1) {
-            return Responsemsg.error("-1");
+            return "-1";
         }else {
             userDao.lock(Integer.parseInt(usid),Integer.parseInt(gottenid));
-            return Responsemsg.successWithMessage("1");
+            return "1";
         }
     }
 
-    public Responsemsg unlock(String usid, String gottenid) {
+    public String unlock(String usid, String gottenid) {
         int islocked = -1;
         if(userDao.getIslocked(Integer.parseInt(usid))==1){
             islocked=userDao.getIslocked(Integer.parseInt(usid));
         }
         if (islocked==1) {
-            return Responsemsg.error("0");
+            return "0";
         } else if (islocked==-1) {
-            return Responsemsg.error("-1");
+            return "-1";
         }else {
-            userDao.unlock(Integer.parseInt(usid),Integer.parseInt(gottenid));
-            return Responsemsg.successWithMessage("1");
+            userDao.unlock(Integer.parseInt(usid));
+            return "1";
         }
     }
 

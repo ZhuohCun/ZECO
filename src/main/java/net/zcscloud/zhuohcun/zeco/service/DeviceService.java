@@ -4,8 +4,7 @@ import io.jsonwebtoken.Claims;
 import net.zcscloud.zhuohcun.zeco.DaoProxy.DeviceProxy;
 import net.zcscloud.zhuohcun.zeco.DaoProxy.UserProxy;
 import net.zcscloud.zhuohcun.zeco.common.JwtUtil;
-import net.zcscloud.zhuohcun.zeco.entity.AbstractDevice;
-import net.zcscloud.zhuohcun.zeco.entity.Responsemsg;
+import net.zcscloud.zhuohcun.zeco.entity.*;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,30 +29,30 @@ public class DeviceService{
     @Autowired
     private UserProxy userProxy;
 
-    public Responsemsg updateValue(String devid, String token,String value) throws JSONException, IOException { //!!Observer Pattery //Only IoT user can update 「its」 value
+    public String updateValue(String devid, String token,String value) throws JSONException, IOException { //!!Observer Pattery //Only IoT user can update 「its」 value
         synchronized (this) {
             if(ismatch(devid,token)==1){
                 try{
                     deviceProxy.updateDeviceValue(Integer.parseInt(devid),value);
-                    return Responsemsg.successWithMessage("1");
+                    return "1";
                 }catch (Exception e){
-                    return Responsemsg.error("-1");
+                    return "-1";
                 }
             }else {
-                return Responsemsg.error("-1");
+                return "-1";
             }
         }
     }
-    public Responsemsg updateDeviceSpecs(int devid,String name,String type,String unit,String maxvalue,String physicalid,String placeid) throws JSONException, IOException { //Only root/admin can update 「its」 value
+    public String updateDeviceSpecs(int devid,String name,String type,String unit,String maxvalue,String physicalid,String placeid) throws JSONException, IOException { //Only root/admin can update 「its」 value
         synchronized (this) {
             deviceProxy.updateDeviceSpecs(devid, name, type, unit, maxvalue, physicalid, placeid);
-            return  Responsemsg.successWithMessage("1");
+            return  "1";
         }
     }
-    public Responsemsg deleteDevice(String devid,String id) throws JSONException, IOException {
+    public String deleteDevice(String devid,String id) throws JSONException, IOException {
         synchronized (this) {
             deviceProxy.deleteDevice(devid, id);
-            return  Responsemsg.successWithMessage("1");
+            return  "1";
         }
     }
     public List<AbstractDevice> getDevices(String placeid) throws JSONException, IOException {
@@ -74,6 +73,15 @@ public class DeviceService{
 
     public String getDescription(int devid) {  //!!Decorator pattern
         AbstractDevice specificDevice=deviceProxy.getDevicebyId(devid);
+        if(specificDevice.getType()==1){
+            specificDevice=new COsensor();
+        }else if(specificDevice.getType()==2){
+            specificDevice=new TemperatureSensor();
+        }else if(specificDevice.getType()==3){
+            specificDevice=new PM25sensor();
+        }else {
+            return "-1";
+        }
         return specificDevice.getInfo();
     }
 

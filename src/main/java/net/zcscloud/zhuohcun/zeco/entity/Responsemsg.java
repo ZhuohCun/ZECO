@@ -4,18 +4,18 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 @NoArgsConstructor
-@AllArgsConstructor
 @Data
-public class Responsemsg {
-    private Integer code; // 响应码，200 代表成功; 0 或其他代表失败/业务错误
-    private String msg;   // 响应信息 描述字符串
-    private Object data;  // 返回的数据
+public class Responsemsg<T> {
+    private Integer code;
+    private String message;
+    private Object data;
 
-    public Responsemsg(Integer code, String msg, Object data) {
+    public Responsemsg(Integer code, String message, Object data) {
         this.code = code;
-        this.msg = msg;
+        this.message = message;
         this.data = data;
     }
+
     public static Responsemsg success() {
         return new Responsemsg(200, "success", null);
     }
@@ -27,6 +27,7 @@ public class Responsemsg {
     public static Responsemsg successWithMessage(String message) {
         return new Responsemsg(200, message, null);
     }
+
     public static Responsemsg successWithMessageAndData(String message, Object data) {
         return new Responsemsg(200, message, data);
     }

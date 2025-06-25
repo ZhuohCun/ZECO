@@ -1,4 +1,5 @@
 package net.zcscloud.zhuohcun.zeco.entity;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,6 +11,7 @@ import javax.persistence.Table;
 @Entity
 @Getter
 @Setter
+@Data
 @Inheritance
 @Table(name = "user")
 public class Root extends AbstractUser {

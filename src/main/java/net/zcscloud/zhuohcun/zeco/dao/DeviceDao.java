@@ -2,48 +2,51 @@ package net.zcscloud.zhuohcun.zeco.dao;
 
 import net.zcscloud.zhuohcun.zeco.entity.AbstractDevice;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
-import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Mapper
-public interface DeviceDao{
-
-    @Modifying
-    @Transactional
-    @Update("UPDATE Device SET cvalue= :value , ccondition=  :condition , color= :color where id= :devid and isdeleted=0")
-    void updateDeviceValue(int devid, String value, String color,String condition);
+public interface DeviceDao {
 
     @Transactional
-    @Select("SELECT id$user FROM device WHERE id= :devid and isdeleted=0 limit 1")  //!!Demeter Law
-    int getusidbydevid(int devid);
+    @Update("UPDATE `device` SET `cvalue`=#{value},`ccondition`=#{condition},`color`=#{color} WHERE `id`=#{devid} AND `isdeleted`=0")
+    void updateDeviceValue(@Param("devid") int devid,
+                           @Param("value") String value,
+                           @Param("color") String color,
+                           @Param("condition") String condition);
+
+    @Select("SELECT `id$user` FROM `device` WHERE `id`=#{devid} AND `isdeleted`=0 LIMIT 1")
+    int getusidbydevid(@Param("devid") int devid);
+
+    @Select("SELECT `max_value` FROM `device` WHERE `id`=#{devid} AND `isdeleted`=0")
+    float getmaxvaluebydevid(@Param("devid") int devid);
+
+    @Select("SELECT `id`,`name`,`type`,`unit`,`cvalue`,`ccondition`,`color`,`id$place` FROM `device` WHERE `id$place`=#{placeid} AND `isdeleted`=0")
+    List<AbstractDevice> getdevicesbyplaceid(@Param("placeid") int placeid);
 
     @Transactional
-    @Select("SELECT maxvalue FROM device WHERE id= :devid and isdeleted=0")  //!!demeter Law  /only provide necessary information
-    float getmaxvaluebydevid(int devid);
+    @Update("UPDATE `device` SET `name`=#{name},`type`=#{type},`unit`=#{unit},`max_value`=#{maxvalue},`physicalid`=#{physicalid},`placeid`=#{placeid} WHERE `id`=#{devid} AND `isdeleted`=0")
+    void updateDeviceSpecs(@Param("devid") int devid,
+                           @Param("name") String name,
+                           @Param("type") int type,
+                           @Param("unit") String unit,
+                           @Param("maxvalue") float maxvalue,
+                           @Param("physicalid") String physicalid,
+                           @Param("placeid") int placeid);
 
     @Transactional
-    @Select("SELECT type,unit,cvalue,ccondition,color,id$place FROM device where id$place= :placeid and isdeleted=0")  //!!demeter Law
-    List<AbstractDevice> getdevicesbyplaceid(int placeid);
+    @Update("UPDATE `device` SET `isdeleted`=1,`deletedby`=#{usid} WHERE `id`=#{devid} AND `isdeleted`=0")
+    void deleteDevice(@Param("devid") int devid,
+                      @Param("usid") int usid);
 
-    @Transactional
-    @Modifying
-    @Update("UPDATE device SET name= :name, type= :type, unit= :unit, maxvalue= :maxvalue, physicalid= :physicalid, placeid= :placeid WHERE id= :devid and isdeleted=0")
-    void updateDeviceSpecs(int devid, String name, int type, String unit, String maxvalue, String physicalid, int placeid);
+    @Select("SELECT * FROM `device` WHERE `id`=#{devid} AND `isdeleted`=0 LIMIT 1")
+    AbstractDevice getDevicebyId(@Param("devid") int devid);
 
-    @Transactional
-    @Modifying
-    @Update("UPDATE device SET isdeleted=1, deletedby= :usid WHERE id= :devid and isdeleted=0")
-    void deleteDevice(String devid, int usid);
+    @Select("SELECT `cvalue` FROM `device` WHERE `id`=#{devid} AND `isdeleted`=0")
+    int getUpdate(@Param("devid") int devid);
 
-    @Transactional
-    @Select("SELECT * FROM device WHERE id= :devid AND isdeleted=0 limit1")
-    AbstractDevice getDevicebyId(int devid);
-
-    @Transactional
-    @Select("SELECT cvalue FROM device WHERE id= :devid AND isdeleted=0")
-    int getUpdate(int devid);
 }

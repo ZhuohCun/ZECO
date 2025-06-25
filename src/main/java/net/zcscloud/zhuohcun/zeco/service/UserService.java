@@ -15,39 +15,39 @@ public class UserService{
     @Autowired
     private UserProxy userProxy;
 
-    public Responsemsg login(String username, String password) {
+    public String login(String username, String password) {
         AbstractUser user = userProxy.findByName(username);
         if (user == null) {
-            return Responsemsg.error("-1");
+            return "-1";
         }
         if (!user.getPassword().equals(password)) {
-            return Responsemsg.error("-1");
+            return "-1";
         }
         if(user.getIsdeleted()==1&&user.getIslocked()==1){
-            return Responsemsg.error("-2");
+            return "-2";
         }
-        return Responsemsg.successWithMessage(JwtUtil.generateToken(username,43200000));
+        return JwtUtil.generateToken(username,432000000);
     }
     public String verifyToken(String token) {
         try {
             if (JwtUtil.validateToken(token)) {
-                return "0"; //valid
+                return "1"; //valid
             }
-            return "1"; //overdue
+            return "-1"; //overdue
         } catch (Exception e) {
-            return "2"; //error occurred
+            return "-2"; //error occurred
         }
     }
     public int getrole (String id) {
         return userProxy.getuserrole(Integer.parseInt(id));
     }
 
-    public Responsemsg lock(String usid, String gottenid) {
+    public String lock(String usid, String gottenid) {
         synchronized (this) {
             return  userProxy.lock(usid,gottenid);
         }
     }
-    public Responsemsg unlock(String usid, String gottenid) {
+    public String unlock(String usid, String gottenid) {
         synchronized (this) {
             return  userProxy.unlock(usid,gottenid);
         }

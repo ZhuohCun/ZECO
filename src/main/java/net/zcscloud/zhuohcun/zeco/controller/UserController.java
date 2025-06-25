@@ -1,4 +1,5 @@
 package net.zcscloud.zhuohcun.zeco.controller;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.jsonwebtoken.Claims;
 import net.zcscloud.zhuohcun.zeco.DaoProxy.UserProxy;
 import net.zcscloud.zhuohcun.zeco.common.JwtUtil;
@@ -19,28 +20,27 @@ public class UserController{
     private UserProxy userProxy;
 
     @PostMapping("/login")
-    public Responsemsg login(@RequestBody String requestusername, @RequestBody String requestpassword) {
+    public String login(String requestusername,String requestpassword) {
         String username = requestusername;
         String password = requestpassword;
         if (username == null) {
-            return Responsemsg.error("-1");
+            return "-1";
         }
         if (password == null) {
-            return Responsemsg.error("-1");
+            return "-1";
         }
         return userService.login(username,password);
     }
     @PostMapping("/verifyToken")
-    public String verifyToken(@RequestBody String requesttoken) {
-        String token = requesttoken;
-        if (token != null && !token.isEmpty()) {
+    public String verifyToken( String token) {
+        if (token != null) {
             return userService.verifyToken(token);
         } else {
-            return "2"; //invalid
+            return "-1"; //invalid
         }
     }
     @PostMapping("/lock")  //Only root can perform this operation
-    public Responsemsg lock(@RequestBody String token, @RequestBody String usid) {
+    public String lock( String token,  String usid) {
         String gottenid = null;
         int role;
         try{
@@ -48,21 +48,21 @@ public class UserController{
             gottenid=c.getId();
             role=userService.getrole(gottenid);
         }catch(Exception e){
-            return Responsemsg.error("-1");
+            return "-2";
         }
-        if(userService.verifyToken(token)=="0" && (role==0)){  //verification
+        if(userService.verifyToken(token)=="1" && (role==0)){  //verification
             try {
                 return userService.lock(usid, gottenid);
             }catch (Exception e){
-                return Responsemsg.error("-1");
+                return "-3";
             }
         }else {
-            return Responsemsg.error("-1");
+            return "-4";
         }
     }
 
     @PostMapping("/unlock")  //Only root can perform this operation
-    public Responsemsg unlock(@RequestBody String token, @RequestBody String usid) {
+    public String unlock( String token,  String usid) {
         String gottenid = null;
         int role;
         try{
@@ -70,31 +70,31 @@ public class UserController{
             gottenid=c.getId();
             role=userService.getrole(gottenid);
         }catch(Exception e){
-            return Responsemsg.error("-1");
+            return "-1";
         }
-        if(userService.verifyToken(token)=="0" && (role==0)){  //verification
+        if(userService.verifyToken(token)=="1" && (role==0)){  //verification
             try {
                 return userService.unlock(usid, gottenid);
             }catch (Exception e){
-                return Responsemsg.error("-1");
+                return "-1";
             }
         }else {
-            return Responsemsg.error("-1");
+            return "-1";
         }
     }
 
     @GetMapping("/getDescription")  //Decorator pattern
-    public Responsemsg getDescription(@RequestBody String token) {
-        if(userService.verifyToken(token)=="0"){
+    public String getDescription( String token) {
+        if(userService.verifyToken(token)=="1"){
             try{
                 Claims c = JwtUtil.extractAllClaims(token);
                 int usid=Integer.parseInt(c.getId());
-                return Responsemsg.successWithMessage(userService.getDescription(usid));
+                return userService.getDescription(usid);
             }catch (Exception e){
-                return Responsemsg.error("-1");
+                return "-1";
             }
         }else {
-            return Responsemsg.error("-1");
+            return "-1";
         }
     }
 }

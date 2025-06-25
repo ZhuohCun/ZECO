@@ -2,10 +2,9 @@ package net.zcscloud.zhuohcun.zeco.dao;
 
 import net.zcscloud.zhuohcun.zeco.entity.User;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
-import org.springframework.data.jpa.repository.Modifying;
-
 
 import javax.transaction.Transactional;
 
@@ -13,28 +12,27 @@ import javax.transaction.Transactional;
 public interface UserDao{
 
     @Transactional
-    @Select("SELECT role FROM user where id= :usid and isdeleted=0 limit 1") //!!Demeter Law
-    int getUserRole(int usid);
+    @Select("SELECT `role` FROM `user` WHERE `id`=#{usid} AND `isdeleted`=0 LIMIT 1")
+    int getUserRole(@Param("usid") int usid);
 
     @Transactional
-    @Select("SELECT islocked FROM user WHERE id= :usid and isdeleted=0")
-    int getIslocked(int usid);
+    @Select("SELECT `islocked` FROM `user` WHERE `id`=#{usid} AND `isdeleted`=0")
+    int getIslocked(@Param("usid") int usid);
 
     @Transactional
-    @Modifying
-    @Update("UPDATE user SET islocked=1, lockedby= :gottenid WHERE id= :usid and isdeleted=0")
-    void lock(int usid, int gottenid);
+    @Update("UPDATE `user` SET `islocked`=1,`lockedby`=#{gottenid} WHERE `id`=#{usid} AND `isdeleted`=0")
+    void lock(@Param("usid") int usid, @Param("gottenid") int gottenid);
 
     @Transactional
-    @Modifying
-    @Update("UPDATE user SET islocked=0, lockedby=0 WHERE id= :usid and isdeleted=0")
-    void unlock(int usid, int gottenid);
+    @Update("UPDATE `user` SET `islocked`=0,`lockedby`=0 WHERE `id`=#{usid} AND `isdeleted`=0")
+    void unlock(@Param("usid") int usid);
 
     @Transactional
-    @Select("SELECT * FROM user WHERE id= :usid AND isdeleted=0 limit1")
-    User getUserbyId(int usid);
+    @Select("SELECT * FROM `user` WHERE `id`=#{usid} AND `isdeleted`=0 LIMIT 1")
+    User getUserbyId(@Param("usid") int usid);
 
     @Transactional
-    @Select("SELECT * FROM user WHERE username= :name AND isdeleted=0 AND islocked=0")
-    User findByName(String name);
+    @Select("SELECT * FROM `user` WHERE `username`=#{name} AND `isdeleted`=0 AND `islocked`=0 LIMIT 1")
+    User findByName(@Param("name") String name);
+
 }

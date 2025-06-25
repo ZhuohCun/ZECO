@@ -10,7 +10,7 @@ import java.util.Date;
 @Component
 public class JwtUtil {
 
-    private static final String SECRET_KEY = "Takukou Sun no pasuwa-do　desune aka. Zhuohong Cun's password";
+    private static final String SECRET_KEY = "TakukouSunnopasuwa-dodesuneaka.ZhuohongCun'spassword";
 
     public static String generateToken(String username,long expiration) {
         return Jwts.builder()
