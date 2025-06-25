@@ -20,13 +20,13 @@ public class COsensor extends AbstractDevice {
     String type="1";
 
     @Column
-    String maxvalue= "100";
+    String max_value= "100";
 
     @Column
     String unit= "%";
 
     @Override
     public String getInfo(){  //!!Decorator pattern
-        return super.getInfo()+" the CO value and the max scale is "+maxvalue+" and unit is "+unit+".";
+        return super.getInfo()+" the CO value and the max scale is "+max_value+" and unit is "+unit+".";
     }
 }

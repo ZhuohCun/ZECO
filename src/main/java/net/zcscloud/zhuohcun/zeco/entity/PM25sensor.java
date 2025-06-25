@@ -20,13 +20,13 @@ public class PM25sensor extends AbstractDevice {
     String type="3";
 
     @Column
-    String maxvalue= "50";
+    String max_value= "50";
 
     @Column
     String unit= "mg/m3";
 
     @Override
     public String getInfo(){  //!!Decorator pattern
-        return super.getInfo()+" the PM2.5 value and the max scale is "+maxvalue+" and unit is "+unit+".";
+        return super.getInfo()+" the PM2.5 value and the max scale is "+max_value+" and unit is "+unit+".";
     }
 }

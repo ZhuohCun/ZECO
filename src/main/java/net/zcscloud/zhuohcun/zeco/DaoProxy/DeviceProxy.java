@@ -18,13 +18,16 @@ public class DeviceProxy implements GeneralProxy{  //!!Proxy Pattern
         String color;
         String condition;
         if(percent<0.3){
-            condition="LOW";
-            color="darkblue";
-        } else if (percent<=0.7) {
-            condition="GREAT";
+            condition="Excellent";
             color="green";
-        }else {
-            condition="HIGH";
+        } else if (percent<=0.5) {
+            condition="Good";
+            color="green";
+        }else if (percent<=0.65){
+            condition="Bad";
+            color="red";
+        } else {
+            condition="Awful";
             color="red";
         }
         deviceDao.updateDeviceValue(devid, value, color, condition);

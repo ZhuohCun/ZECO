@@ -13,7 +13,7 @@ public interface UserDao{
 
     @Transactional
     @Select("SELECT `role` FROM `user` WHERE `id`=#{usid} AND `isdeleted`=0 LIMIT 1")
-    int getUserRole(@Param("usid") int usid);
+    int getUserRole(@Param("usid") int usid);          //!!Demeter Law
 
     @Transactional
     @Select("SELECT `islocked` FROM `user` WHERE `id`=#{usid} AND `isdeleted`=0")
